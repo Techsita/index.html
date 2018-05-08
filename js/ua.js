@@ -1,1 +1,1 @@
-document.write(navigator.userAGENT);
+document.write(navigator.userAgent);
