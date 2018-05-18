@@ -13,6 +13,7 @@ fyi <noscript>no</noscript>script allowed<br>
 <script>
   var strict = ( function () { return !!!this } ) ();
   document.write('strict: ' + strict)
+  document.write(`<br>${frameElement.ownerDocument.defaultView.name}`);
 </script>
 </body>
 </html>
