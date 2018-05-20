@@ -8,8 +8,9 @@ ti
 <body>
   <form action="" method="get" target="_self">
     query part: <input type="text" name="query" value="default"><br>
-  <input type="submit" value="get load">
-</form>
+    <input type="submit" value="get load">
+  </form>
+  <br><input action="action" type="button" value="Back" onclick="window.history.go(-1); return false;" />
 <!--
 <script src='/js/ua.js'></script>
 -->
@@ -17,6 +18,7 @@ fyi <noscript>no</noscript>script allowed<br>
 <script>
   var strict = ( function () { return !!!this } ) ();
   document.write('strict: ' + strict)
+  document.write('standalone: ' + navigator.standalone)
   document.write(`<br>${frameElement.ownerDocument.defaultView.name}`);
 </script>
 </body>
