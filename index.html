@@ -19,6 +19,7 @@ ti
   var strict = ( function () { return !!!this } ) ();
   document.write('<br>strict: ' + strict)
   document.write('<br>standalone: ' + navigator.standalone)
+  document.write('<br>UA: ' + navigator.userAgent);
   document.write(`<br>${frameElement.ownerDocument.defaultView.name}`);
 </script>
 </body>
