@@ -20,6 +20,7 @@ ti
 <br><a href="https://techsita.github.io/index.html" target="_self">test link</a>
 <script>
   var strict = ( function () { return !!!this } ) ();
+  self.qname.setAttribute('value', self.name);
   document.write('<br>strict: ' + strict)
   document.write('<br>standalone: ' + navigator.standalone)
   document.write('<br>UA: ' + navigator.userAgent);
