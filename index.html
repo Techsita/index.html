@@ -8,10 +8,11 @@ ti
 </head>
 <body>
   <form action="" method="get" target="_self">
-    query part: <input type="text" name="query" value="default"><br>
+    query part: <input id='qname' type="text" name="query" value="default"><br>
     <input type="submit" value="get load">
   </form>
   <br><input action="#" type="button" value="Back" onclick="window.history.go(-1); return false;" />
+  <br><input action="#" type="button" value="name cookie" onclick="document.cookie='name='+name; qname.setAttribute('value', name); return false;" />
 <!--
 <script src='/js/ua.js'></script>
 -->
