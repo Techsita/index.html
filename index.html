@@ -5,14 +5,17 @@
 <title>
 ti
 </title>
+<style>
+  #monster:not(:target) {visibility: hidden}
+</style>
 </head>
 <body>
   <form action="/index.html" method="get" target="_self">
     query part: <input id='qname' type="text" name="query" value="default"><br>
     <input type="submit" value="get load">
   </form>
-  <br><input action="#" type="button" value="Back" onclick="window.history.go(-1); return false;" />
-  <br><input action="#" type="button" value="name cookie" onclick="document.cookie='name='+self.name; qname.setAttribute('value', self.name); return false;" />
+  <br><input id='bb' action="#" type="button" value="Back" onclick="window.history.go(-1); return false;" />
+  <br><input id='monster' action="#" type="button" value="name cookie" onclick="document.cookie='name='+self.name; qname.setAttribute('value', self.name); return false;" />
 <!--
 <script src='/js/ua.js'></script>
 -->
