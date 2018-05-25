@@ -20,11 +20,12 @@ ti
 <br><a href="https://techsita.github.io/index.html" target="_self">test link</a>
 <script>
   var strict = ( function () { return !!!this } ) ();
-  self.qname.setAttribute('value', document.cookie);
   document.write('<br>strict: ' + strict)
+  self.qname.setAttribute('value', document.cookie);
   document.write('<br>standalone: ' + navigator.standalone)
   document.write('<br>UA: ' + navigator.userAgent);
   document.write('<br>URL: ' + location.href);
+  self.onhashchange = function(e) {self.qname.setAttribute('value', e.newURL)};
   document.write(`<br>${frameElement.ownerDocument.defaultView.name}`);
 </script>
 <br id='bottom'>
