@@ -1,3 +1,3 @@
-console["target"]="was here";
+window.document.title="was here";
 import from 'exp.js';
-self.obj = myobj;
+window.self["obj"] = myobj;
