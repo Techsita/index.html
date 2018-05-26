@@ -1,2 +1,2 @@
-import from 'js/exp.js'
+import from 'exp.js'
 self.obj = myobj;
