@@ -1,4 +1,4 @@
 // window.self.document.title="was here";
-import './exp.js';
+import myObj from './exp.js';
 // export default var xxx = 'foo';
-window.self["obj"] = 'myobj';
+window.self["obj"] = "" + typeof myObj;
