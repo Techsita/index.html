@@ -1,1 +1,1 @@
-window.self.document.title = "il: " + typeof window["import"];
+window.self.document.title = "selfname: " + window["self"].name;
