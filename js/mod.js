@@ -1,1 +1,1 @@
-window.self.document.title = "il: " + typeof import;
+window.self.document.title = "il: " + typeof window["import"];
