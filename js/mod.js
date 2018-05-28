@@ -1,1 +1,1 @@
-window.self.document.title = "selfname: " + self.name;
+window.self.document.title = "self.name: " + self.name;
