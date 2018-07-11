@@ -17,6 +17,8 @@
   }
   iframe {
 	  display: block;
+	  height: 100%;
+	  width: 100%;
 	}
 </style>
 <script id="scriptid"></script>
@@ -32,7 +34,7 @@
 <br><output id="out"></output><br>
 </form>
 <div id="divif" class="wrapif">
-<iframe id="ifrid" name="ifra" scrolling="yes" src="javascript:document.body.innerHTML=parent.formid.outerHTML;void(0);">ifra err</iframe>
+<iframe id="ifrid" name="ifra" scrolling="no" src="javascript:document.body.innerHTML=parent.formid.outerHTML;void(0);">ifra err</iframe>
 </div>
 </div>
 </div>
