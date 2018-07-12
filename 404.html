@@ -9,7 +9,7 @@
 <h1>404 redirecting...</h1>
 <script>
   var url = new URL(location.href);
-  url.search = url.pathname + url.search;
+  url.search = encodeURIComponent(document.location) + url.search;
   url.pathname = '/index.html';
   location = url;
 </script>
