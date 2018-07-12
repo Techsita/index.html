@@ -30,7 +30,7 @@
 <form id="formid" action="#" onsubmit="var r; try{r=self.eval(inp.value);} catch(e){r=e.message}; out.value=r; return false;">
 <button id="but" type="submit">eval</button>
 <input id="inp" type="text" size=80 value="[document.querySelector('output').id]">
-<br><output id="out"></output><br>
+<br><output id="out" style="white-space: pre-wrap"></output><br>
 </form>
 <div id="divif" class="wrapif">
 <iframe id="ifrid" name="ifra" height="999" src="javascript:document.body.innerHTML=parent.formid.outerHTML;void(0);">ifra err</iframe>
@@ -39,7 +39,7 @@
 </div>
 <script>
 if (out) { 
-out.value = `${'decoded search: \\n' + decodeURIComponent(location.search) + '\\n?' + document.referrer + '\\n' + navigator.userAgent}`;
+out.value = `${'decoded search: \n' + decodeURIComponent(location.search) + '\n?' + document.referrer + '\n' + navigator.userAgent}`;
 } 
 </script>
 </body>
