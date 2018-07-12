@@ -39,7 +39,7 @@
 </div>
 <script>
 if (out) { 
-out.value = `${navigator.userAgent}`;
+out.value = `${'decoded search: ' + decodeURIComponent(location.search) + '\n' + document.refferer + '\n' + navigator.userAgent}`;
 } 
 </script>
 </body>
