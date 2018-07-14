@@ -30,7 +30,7 @@
 <form id="formid" action="#" onsubmit="var r; try{r=self.eval(inp.value);} catch(e){r=e.message}; out.value=r; return false;">
 <button id="but" type="submit">eval</button>
 <input id="inp" type="text" size=80 tabindex="-1" value="inp.focus();">
-<br><output id="out" style="white-space: pre-wrap; -webkit-user-select: text !important;" contenteditable="true"></output><br>
+<br><output id="out" style="white-space: pre-wrap; -webkit-user-select: text !important;" contenteditable="true" onclick="inp.value=out.value;"></output><br>
 </form>
 <div id="divif" class="wrapif">
 <iframe id="ifrid" name="ifra" allowfullscreen="true" height="999" src="javascript:document.body.innerHTML=parent.formid.outerHTML;void(0);">ifra err</iframe>
