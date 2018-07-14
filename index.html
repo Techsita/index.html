@@ -32,7 +32,7 @@
 <form id="formid" action="#" onsubmit="var r; try{r=self.eval(inp.value);} catch(e){r=e.message}; out.value=r; return false;">
 <button id="but" type="submit">eval</button>
 <input id="inp" type="text" size=80 tabindex="-1" value="inp.focus();">
-<br><output id="out" form="formid" style="white-space: pre-wrap; -webkit-user-select: text !important;" contenteditable="true" onclick="inp.value=out.value;"></output><br>
+<br><output id="out" form="formid" style="white-space: pre-wrap;" onclick="inp.value=out.value;"></output><br>
 </template>
 <details class="wrapif"> 
 <summary>fyi, click output to fill in input</summary>
@@ -46,7 +46,7 @@
 <form id="formid" action="#" onsubmit="var r; try{r=self.eval(inp.value);} catch(e){r=e.message}; out.value=r; return false;">
 <button id="but" type="submit">eval</button>
 <input id="inp" type="text" size=80 tabindex="-1" value="inp.focus();">
-<br><output id="out" form="formid" style="white-space: pre-wrap; -webkit-user-select: text !important;" contenteditable="true" onclick="inp.value=out.value;"></output><br>
+<br><output id="out" form="formid" style="white-space: pre-wrap;" onclick="inp.value=out.value;"></output><br>
 </form>
 </div>
 </div>
@@ -54,7 +54,7 @@
 if (out) { 
 out.value = `${'WIP: 404.html decoded search testing...\n' + decodeURIComponent(location.search) + '\n?' + document.referrer + '\n' + navigator.userAgent}`;
 };
-window.addEventListener("touchstart", ()=>{});
+/* window.addEventListener("touchstart", ()=>{}); */
 </script>
 </body>
 </html>
