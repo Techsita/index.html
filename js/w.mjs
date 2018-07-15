@@ -1,3 +1,3 @@
 onmessage = function(e) {
-  postMessage(String(e.data));
+  postMessage(eval(e.data));
 }
