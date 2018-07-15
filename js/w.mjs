@@ -1,6 +1,6 @@
-onmessage = function mess(e) {
+self.onmessage = function mess(e) {
   try { 
-    postMessage(String(e.data)); 
+    postMessage(String(e.data) + mess.toString()); 
   } catch(err) {
     postMessage(err.message);
   }
