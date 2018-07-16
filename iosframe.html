@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.wrap { 
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling:touch;
+    display: block;
+    box-sizing: border-box;
+    height: 200px; 
+    width: 640px;
+}
+
+iframe {
+    display: block;
+    box-sizing: border-box;
+    margin: none;
+    padding: none;
+    border: none;
+    max-width: 100%;
+    min-height: 200%;
+}
+
+iframe::-webkit-scrollbar { 
+    display: none;
+}
+
+::root {
+    background-color: white;
+}
+
+body {
+    background-color: lightGray;
+}
+
+div {
+background-color: red;
+}
+
+#divid {
+    background-clip: content-box;
+    background-color: darkGray;
+}
+
+#ifrid {
+    background-color: pink;
+    outline: 1px solid cyan;
+}
+</style>
+</head>
+<body>
+<div>
+<div id="divid" class="wrap"><iframe id="ifrid" name="ifra" scrolling="no" src="https://example.com"></iframe></div>
+</div>
+</body>
+</html>
