@@ -1,0 +1,14 @@
+<!--
+// /*
+alert(1); // bug off block for css parser, welcome js...
+`this is a js ~ignored multi-line string...
+// */
+{}
+ body { background-color: pink; } /* css is rosy, js who cares? */
+/* ` ; alert(2); // js yes, css no; could end css like this
+// but lets assume js wants to go write along to html...
+/*
+-->
+<head><title>tripleCacheMimeless</title></head><body>body</body><!--
+*/
+/* out of comment and back in for both js & css, and finis; html will cope */
