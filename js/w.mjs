@@ -1,5 +1,5 @@
 // 'use strict'; 
-var isStrict = ( function () { return !!!this } ) (); 
+let isStrict = ( function () { return !!!this } ) (); 
 
 let url = import.meta.url;
 
