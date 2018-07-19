@@ -7,6 +7,8 @@ self.onmessage = function mess(e) {
 }
 // self.importScripts("data:text/javascript;/self.js?#,function%20evil(doer){try{return(eval(doer));}catch(e){return(e);}}");
 
-export default function evil(doer){try{return(eval(doer));}catch(e){return(e);}}
+function evil(doer){try{return(eval(doer));}catch(e){return(e);}}
 
 self.url = import.meta.url;
+
+export default constant hack = {self: self};
