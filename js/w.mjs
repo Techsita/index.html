@@ -1,3 +1,5 @@
+self = self || {closed: true};
+
 self.onmessage = function mess(e) {
   try { 
     postMessage(String(e.data) + " // " + String(eval(e.data)) ); 
@@ -11,4 +13,4 @@ function evil(doer){try{return(eval(doer));}catch(e){return(e);}}
 
 self.url = import.meta.url;
 
-export default {self: self};
+export default {url: self.url, self: self, evil: evil};
