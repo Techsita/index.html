@@ -11,4 +11,4 @@ function evil(doer){try{return(eval(doer));}catch(e){return(e);}}
 
 self.url = import.meta.url;
 
-export default constant hack = {self: self};
+export default {self: self};
