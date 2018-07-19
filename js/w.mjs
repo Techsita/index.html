@@ -1,3 +1,6 @@
+// 'use strict'; 
+var isStrict = ( function () { return !!!this } ) (); 
+
 let url = import.meta.url;
 
 export let stuff = {url: url, foo: {bar: 666}};
