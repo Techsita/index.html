@@ -1,4 +1,6 @@
-self = self || {closed: true};
+let url = import.meta.url;
+
+// self = self || {closed: true};
 
 self.onmessage = function mess(e) {
   try { 
@@ -9,8 +11,6 @@ self.onmessage = function mess(e) {
 }
 // self.importScripts("data:text/javascript;/self.js?#,function%20evil(doer){try{return(eval(doer));}catch(e){return(e);}}");
 
-function evil(doer){try{return(eval(doer));}catch(e){return(e);}}
+export let stuff = {url: url, foo: {bar: 666}};
 
-self.url = import.meta.url;
-
-export default {url: self.url, self: self, evil: evil};
+export default function evil(doer){try{return(eval(doer));}catch(e){return(e);}}
