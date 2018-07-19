@@ -3,7 +3,7 @@ let isStrict = ( function () { return !!!this } ) ();
 
 let url = import.meta.url;
 
-export let stuff = {url: url, foo: {bar: 666}};
+export let stuff = {url: url, module: isStrict, foo: {bar: 666}};
 
 // self = self || {closed: true};
 
