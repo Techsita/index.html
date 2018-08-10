@@ -6,7 +6,7 @@ self.onmessage = function mess(e) {
     } catch(err) {
         self.postMessage(String(e.data) + " // " + err.message);
     }
-}
+} // ^ wip, broken in sw, stolen from worker
 
 self.addEventListener('install', function(event) {
     self.skipWaiting();
@@ -17,7 +17,20 @@ self.addEventListener('fetch', function(event) {
     var requestUrl = new URL(event.request.url);
 
     if (requestUrl.protocol.startsWith('https:')) {
-        // http no cert localhost so sw faux for https if once proxied, eh?
+        // http no cert localhost so sw faux for https only if once proxied, eh?
+        
+        if (requestUrl.pathname.includes('/cached/')) {
+          event.respondWith(
+            caches.open('cached').then(function(cache) {
+              return cache.match(event.request).then(function (response) {
+                return response || fetch(event.request).then(function(response) {
+                  cache.put(event.request, response.clone());
+                  return response;
+                });
+              });
+            })
+          );
+        }
         if (!requestUrl.hash.startsWith('#')) {
             return;
         }
@@ -28,7 +41,7 @@ self.addEventListener('fetch', function(event) {
     }
 
     var responseBody = {
-      version: "1.0.2",
+      version: "1.0.3",
       request: Reflect.ownKeys(Reflect.getPrototypeOf(event.request)).map(k=>String(k)+" : " + JSON.stringify(event.request[k])).join("\n"),
       headers: JSON.stringify([...event.request.headers.entries()]),
       sw: self.location.href
