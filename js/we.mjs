@@ -1,5 +1,5 @@
 // 'use strict'; 
-let isStrict = ( function () { return !!!this } ) (); 
+let isStrict = ( function () { return Object.is(undefined, this) } ) (); 
 
 let eports = new Set();
 let portEval = portEval0;
