@@ -1,18 +1,24 @@
 // 'use strict'; 
 let isStrict = ( function () { return !!!this } ) (); 
+
 let eports = new Set();
+let portEval = portEval0;
+
+self.onmessage = portEval;
 
 function portal(oport) {
-  if (oport && oport.onmessage) {
+  if (oport && oport instanceof MessagePort) {
+    oport.onmessage = portEval;
     eports.add(oport);
   }
 }
 
-self.onmessage = function mess(e) {
+function portEval0 (e) {
   portal(e.ports[0]);
+  
   try { 
-    self.postMessage(String(e.data) + " // " + String(eval(e.data)) ); 
+    this.postMessage(String(e.data) + " // " + String(eval(e.data)) ); 
   } catch(err) {
-    self.postMessage(String(e.data) + " // " + err.message);
+    this.postMessage(String(e.data) + " // " + err.message);
   }
 }
