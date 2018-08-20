@@ -1,13 +1,13 @@
-// 'use strict'; 
+// 'use strict'; // for mjs future... no-go now for sw; also problematic bimodal html/js
 let isStrict = ( function () { return Object.is(undefined, this) } ) (); 
 
-self.log = [];
+self.log = []; // dev mode, c/rude force log utility
 console.log = self.log.push.bind(self.log);
 
-let eports = new Set();
-let portEval = portEval1;
+let eports = new Set(); // hold messchan refs, if needed
+let portEval = portEval1; // dev eval ala mode
 
-self.onmessage = portEval;
+self.onmessage = portEval; // opt-in for win, worker, service worker
 
 function portal(oport) {
   if (oport && oport instanceof MessagePort) {
@@ -16,21 +16,11 @@ function portal(oport) {
   }
 }
 
-function portEval0 (e) {
-  portal(e.ports[0]);
-  
-  try { 
-    this.postMessage(String(e.data) + " // " + String(eval(e.data)) ); 
-  } catch(err) {
-    this.postMessage(String(e.data) + " // " + err.message);
-  }
-}
-
-function portEval1 (e) {
-  portal(e.ports[0]);
+function portEval1 (e) { // NB ignoring all security...
+  portal(e.ports[0]); // quickie version of tranferables processing
   
   let ev = {};
-  try { 
+  try { // dev eval, caveat emptor
     ev = eval(e.data); 
   } catch(err) {
     ev = { 
@@ -40,13 +30,13 @@ function portEval1 (e) {
     }
   }
   
-  try {
-    if (this.postMessage) {
-      this.postMessage(ev);
-    } else { // hat tip, po sw client source
-      if (e.source && e.source.postMessage) {
+  try { // reply to sender, ignoring security origin
+    if (e.source && e.source.postMessage) { // sw or win, never messchan
         e.source.postMessage(ev);
-      } else {
+    } else {
+      if (this.postMessage) { // this messchan or fallback
+        this.postMessage(ev);
+      } else { // to-who lookup foo so just log result
         console.log(ev);
       }
     }
