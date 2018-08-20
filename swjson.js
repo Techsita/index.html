@@ -5,10 +5,6 @@
 self.log = [];
 console.log = self.log.push.bind(self.log);
 
-if (!self.postMessage) {
-    self.postMessage = function() {console.log(...arguments);};
-}
-
 // js/me.mjs ...
 
 // 'use strict'; 
@@ -51,14 +47,22 @@ function portEval1 (e) {
   }
   
   try {
-    this.postMessage(ev);
+    if (this.postMessage) {
+      this.postMessage(ev);
+    } else { // hat tip, po sw client source
+      if (e.source && e.source.postMessage) {
+        e.source.postMessage(ev);
+      } else {
+        console.log(ev);
+      }
+    }
   } catch (err) {
     ev = { 
       data: e.data ,
       name: err.name ,
       message: err.message
     }
-    this.postMessage(ev);
+    console.log(ev);
   }
 }
 
@@ -97,7 +101,7 @@ self.addEventListener('fetch', function(event) {
     }
 
     var responseBody = {
-      version: "1.0.4",
+      version: "1.0.5",
       request: Reflect.ownKeys(Reflect.getPrototypeOf(event.request)).map(k=>String(k)+" : " + JSON.stringify(event.request[k])).join("\n"),
       headers: JSON.stringify([...event.request.headers.entries()]),
       sw: self.location.href
