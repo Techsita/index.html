@@ -17,21 +17,26 @@ function portal(oport) {
 }
 
 function portEval1 (e) { // NB ignoring all security...
-  portal(e.ports[0]); // quickie version of tranferables processing
-  
   let ev = {};
-  try { // dev eval, caveat emptor
-    ev = eval(e.data); 
-  } catch(err) {
-    ev = { 
-      data: e.data ,
-      name: err.name ,
-      message: err.message
+  if (e.ports.length) { // quickie version of tranferables processing vs eval
+    portal(e.ports[0]); // nop if, eg, []
+    ev = e.data; // no eval, idemppotent (also, eg, result output)
+  } else { // eval
+    try { // dev eval, caveat emptor
+      ev = eval(e.data); 
+    } catch(err) {
+      ev = { 
+        data: e.data ,
+        name: err.name ,
+        message: err.message
+      }
     }
   }
   
   try { 
     let replyto = null;
+    let pmflag = null;
+    
     if (e.source && e.source instanceof Object && e.source.postMessage && e.source.postMessage instanceof Function) { // if messchan source === null
         replyto = e.source;
     } else {
@@ -41,14 +46,15 @@ function portEval1 (e) { // NB ignoring all security...
         replyto = null;
       }
     }
+    if (replyto) pmflag = (2 === replyto.postMessage.length); // diff pm versions, extra req parameter foo
     
-    if ( replyto && ("Window" === Object.getPrototypeOf(replyto).constructor.name) ) {
-      if (replyto === self) {
+    if ( replyto && pmflag ) {
+      if (replyto === self) { // pmflag laziness, ie implies assert we are Window, not worker or channel
         self.status = (e.data instanceof Object)? JSON.stringify(e.data) : String(e.data); 
         self.status += " // ";
         self.status += (ev instanceof Object)? JSON.stringify(ev) : String(ev); 
       } else {
-        replyto.postMessage(ev, '*'); // reply to sender, ignoring security origin
+        replyto.postMessage(ev, '*', [[]]); // reply to window sender, ignoring security origin, no eval requested
       }
     } else {
       if (replyto) {
