@@ -56,7 +56,7 @@ function portEval1 (e) { // NB ignoring all security...
           self.status += " // ";
           self.status += (ev instanceof Object)? JSON.stringify(ev) : String(ev); 
         } else {
-          // other win sans mc, no reply, as it's nicer to avoid recurse
+          // other win sans mc, no reply, as it's nicer to avoid DOM SOP or recurse foobar
         }
       }
     } else { // not pmflag, so "normal" pm, no recurse risk unless was stupid in chaining mc
