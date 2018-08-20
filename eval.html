@@ -6,10 +6,10 @@
 <script src="js/we.mjs"></script>
 </head>
 <body>
-<br>
-<br>
+<br><br>
 <form id="formid" action="#" onsubmit="var r; try{r=self.eval(inp.value);} catch(e){r=e.message}; out.value=String(r); return false;">
-<button id="but" type="submit">eval</button><br>
+<button id="but" type="submit">eval</button>
+<br><br>
 <input id="inp" type="text" size=80 tabindex="-1" value="(self.el=document.querySelector('#out'))">
 <br><br>
 <output id="out" form="formid" style="white-space: pre-wrap;" onclick="inp.value=out.value;"></output><br>
