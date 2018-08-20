@@ -2,8 +2,8 @@
 
 // WIP ...
 
-self.status = [];
-console.log = self.status.prototype.push.bind(self.status);
+self.log = [];
+console.log = self.log.push.bind(self.log);
 
 if (!self.postMessage) {
     self.postMessage = function() {console.log(...arguments);};
