@@ -54,7 +54,7 @@ function portEval1 (e) { // NB ignoring all security...
         self.status += " // ";
         self.status += (ev instanceof Object)? JSON.stringify(ev) : String(ev); 
       } else {
-        replyto.postMessage(ev, '*', [new arrayBuffer(0)]); // reply to window sender, ignoring security origin, no eval requested
+        replyto.postMessage(ev, '*', [new ArrayBuffer(0)]); // reply to window sender, ignoring security origin, no eval requested
       }
     } else {
       if (replyto) {
