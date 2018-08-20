@@ -1,12 +1,68 @@
-let isStrict = ( function () { return !!!this } ) (); 
+// 'use strict'; 
 
-self.onmessage = function mess(e) {
-    try { 
-        self.postMessage(String(e.data) + " // " + String(eval(e.data)) ); 
-    } catch(err) {
-        self.postMessage(String(e.data) + " // " + err.message);
+// WIP ...
+
+self.status = [];
+console.log = self.status.prototype.push.bind(self.status);
+
+if (!self.postMessage) {
+    self.postMessage = function() {console.log(...arguments);};
+}
+
+// js/me.mjs ...
+
+// 'use strict'; 
+let isStrict = ( function () { return Object.is(undefined, this) } ) (); 
+
+let eports = new Set();
+let portEval = portEval1;
+
+self.onmessage = portEval;
+
+function portal(oport) {
+  if (oport && oport instanceof MessagePort) {
+    oport.onmessage = portEval;
+    eports.add(oport);
+  }
+}
+
+function portEval0 (e) {
+  portal(e.ports[0]);
+  
+  try { 
+    this.postMessage(String(e.data) + " // " + String(eval(e.data)) ); 
+  } catch(err) {
+    this.postMessage(String(e.data) + " // " + err.message);
+  }
+}
+
+function portEval1 (e) {
+  portal(e.ports[0]);
+  
+  let ev = {};
+  try { 
+    ev = eval(e.data); 
+  } catch(err) {
+    ev = { 
+      data: e.data ,
+      name: err.name ,
+      message: err.message
     }
-} // ^ wip, broken in sw, stolen from worker
+  }
+  
+  try {
+    this.postMessage(ev);
+  } catch (err) {
+    ev = { 
+      data: e.data ,
+      name: err.name ,
+      message: err.message
+    }
+    this.postMessage(ev);
+  }
+}
+
+// original swjson.js ...
 
 self.addEventListener('install', function(event) {
     self.skipWaiting();
@@ -41,7 +97,7 @@ self.addEventListener('fetch', function(event) {
     }
 
     var responseBody = {
-      version: "1.0.3",
+      version: "1.0.4",
       request: Reflect.ownKeys(Reflect.getPrototypeOf(event.request)).map(k=>String(k)+" : " + JSON.stringify(event.request[k])).join("\n"),
       headers: JSON.stringify([...event.request.headers.entries()]),
       sw: self.location.href
@@ -68,4 +124,4 @@ self.addEventListener('fetch', function(event) {
     event.respondWith(mockResponse);
   
 
-}); // added fetch event listener... should be in activate, not register?
+}); // added fetch event listener... what should be in activate, not register?
