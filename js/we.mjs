@@ -1,6 +1,9 @@
 // 'use strict'; 
 let isStrict = ( function () { return Object.is(undefined, this) } ) (); 
 
+self.log = [];
+console.log = self.log.push.bind(self.log);
+
 let eports = new Set();
 let portEval = portEval1;
 
@@ -38,13 +41,21 @@ function portEval1 (e) {
   }
   
   try {
-    this.postMessage(ev);
+    if (this.postMessage) {
+      this.postMessage(ev);
+    } else { // hat tip, po sw client source
+      if (e.source && e.source.postMessage) {
+        e.source.postMessage(ev);
+      } else {
+        console.log(ev);
+      }
+    }
   } catch (err) {
     ev = { 
       data: e.data ,
       name: err.name ,
       message: err.message
     }
-    this.postMessage(ev);
+    console.log(ev);
   }
 }
