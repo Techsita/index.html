@@ -3,14 +3,15 @@
 <meta charset="utf-8">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="js/we.mjs"></script>
+<script src="https://techsita.github.io/index.html/js/we.mjs"></script>
 </head>
 <body>
 <br><br>
 <form id="formid" action="#" onsubmit="var r; try{r=self.eval(inp.value);} catch(e){r=e.message}; out.value=String(r); return false;">
 <button id="but" type="submit">eval</button>
 <br><br>
-<input id="inp" type="text" size=80 tabindex="-1" value="(self.el=document.querySelector('#out'))">
+<input id="inp" type="text" size=80 tabindex="-1" value="fetch('https://techsita.github.io/index.html/eval.html').then(res => res.blob()).then(blob => 
+(self.bloburl = URL.createObjectURL(blob))).then(bloburl => document.body.insertAdjacentHTML('beforeend',`<iframe id=ifrid name=ifra src='${bloburl}'></iframe>`))">
 <br><br>
 <output id="out" form="formid" style="white-space: pre-wrap;" onclick="inp.value=out.value;"></output><br>
 </form>
