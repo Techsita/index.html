@@ -1,9 +1,18 @@
+<!DOCTYPE html>
+<html>
 <head>
-<title>eval</title>
 <meta charset="utf-8">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+if (location.href.startsWith('blob:')) {
+  let url = new URL(location.href.slice(5));
+  url.pathname = '/';
+  document.currentScript.insertAdjacentHTML('afterend', `<base href="${url.href}">`);
+}
+</script>
 <script async src="/index.html/js/we.mjs"></script>
+<title>eval</title>
 </head>
 <body>
 <br><br>
@@ -16,3 +25,4 @@
 <output id="out" form="formid" style="white-space: pre-wrap;" onclick="inp.value=out.value;"></output><br>
 </form>
 </body>
+</html>
