@@ -1,15 +1,33 @@
+<!DOCTYPE html>
+<html>
 <head>
-<title>eval</title>
 <meta charset="utf-8">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+self.url = new URL(self.location.href);
+if (self.url.href.startsWith('blob:')) {
+  self.document.currentScript.insertAdjacentHTML('afterend', `<base href="${self.url.origin}">`);
+}
+</script>
+<script async src="/index.html/js/we.mjs"></script>
+<title>eval</title>
 </head>
 <body>
-<br>
-<br>
+<br><br>
 <form id="formid" action="#" onsubmit="var r; try{r=self.eval(inp.value);} catch(e){r=e.message}; out.value=String(r); return false;">
 <button id="but" type="submit">eval</button>
-<input id="inp" type="text" size=80 tabindex="-1" value="(self.el=document.querySelector('#out'))">
-<br><output id="out" form="formid" style="white-space: pre-wrap;" onclick="inp.value=out.value;"></output><br>
+<br><br>
+<input id="inp" type="text" size=80 tabindex="-1" value="window.document.lastModified; ">
+<br><br>
+<output id="out" form="formid" style="white-space: pre-wrap;" onclick="inp.value=out.value;"></output><br>
 </form>
 </body>
+<script>
+let s = url.searchParams.get("inp.value");
+if (null !== s) {
+  inp.value = s;
+  but.click();
+}
+</script>
+</html>
