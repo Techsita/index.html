@@ -16,7 +16,8 @@ self.addEventListener('fetch', function(event) {
         if (requestUrl.pathname.includes('/cached/')) {
           event.respondWith(
             caches.open('cached').then(function(cache) {
-              return cache.match(event.request).then(function (response) {
+              return cache.match(event.request, {ignoreSearch: true}).then(function (response) {
+                // ^ tacky dev hack: currently useful for cache MO ala SPA responsible for ?search itself
                 return response || fetch(event.request).then(function(response) {
                   cache.put(event.request, response.clone());
                   return response;
@@ -35,7 +36,7 @@ self.addEventListener('fetch', function(event) {
     }
 
     var responseBody = {
-      version: "1.0.6",
+      version: "1.0.7",
       request: Reflect.ownKeys(Reflect.getPrototypeOf(event.request)).map(k=>String(k)+" : " + JSON.stringify(event.request[k])).join("\n"),
       headers: JSON.stringify([...event.request.headers.entries()]),
       sw: self.location.href
