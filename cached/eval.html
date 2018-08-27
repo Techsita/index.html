@@ -18,12 +18,12 @@ if (self.url.href.startsWith('blob:')) {
 <form id="formid" action="https://techsita.github.io/index.html/cached/eval.html#top" onsubmit="var r; try{r=self.eval(inp.value);} catch(e){r=e.message}; out.value=String(r); return false;">
 <button id="but" type="submit">eval</button>
 <br><br>
-<input id="inp" type="text" size=80 tabindex="-1" value="window.document.lastModified; ">
+<input id="inp" type="text" size=80 tabindex="-1" name=queval value="window.document.lastModified; ">
 <br><br>
 <output id="out" form="formid" style="white-space: pre-wrap;" onclick="inp.value=out.value;"></output><br>
 </form>
 <script>
-let s = url.searchParams.get("inp.value");
+let s = url.searchParams.get("queval");
 if (null !== s) {
   inp.value = s;
   but.click();
