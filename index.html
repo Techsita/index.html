@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+if (!self.name) self.name = 'self';
+	self.url = new URL(self.location.href);
+	if (self.url.href.startsWith('blob:')) {
+		self.document.currentScript.insertAdjacentHTML('afterend', `<base href="${self.url.origin}">`);
+	}
+</script>
+<title>techsita index.html playground</title>
+<style id="styleid">
+	#top:target {
+		white-space: pre-wrap;
+	}
+</style>
+<script async src="/index.html/cached/js/we.mjs"></script>
+</head>
+<body id="top">
+<object id=objid name=objname data="/index.html/cached/eval.html?queval=parent.length">
+<b>cached eval hasn't loaded!</b>
+</object>
+</body>
+</html>
