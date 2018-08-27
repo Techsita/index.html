@@ -15,7 +15,7 @@ if (self.url.href.startsWith('blob:')) {
 </head>
 <body>
 <br><br>
-<form id="formid" action="#" onsubmit="var r; try{r=self.eval(inp.value);} catch(e){r=e.message}; out.value=String(r); return false;">
+<form id="formid" action="#top" onsubmit="var r; try{r=self.eval(inp.value);} catch(e){r=e.message}; out.value=String(r); return false;">
 <button id="but" type="submit">eval</button>
 <br><br>
 <input id="inp" type="text" size=80 tabindex="-1" value="window.document.lastModified; ">
