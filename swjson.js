@@ -12,7 +12,7 @@ self.addEventListener('fetch', function(event) {
 
     if (requestUrl.pathname.startsWith('/index.html/redirect/https://')) {
         requestURL.href = requestURL.pathname.slice(21) + requestURL.search + requestURL.hash;  
-        event.respondWith(Response.redirect(requestURL.href));
+        event.respondWith(fetch(requestURL.href, {mode: 'cors', credentials: 'include'}));
     }
     
     if (requestUrl.protocol.startsWith('https:')) {
