@@ -10,6 +10,11 @@ self.addEventListener('fetch', function(event) {
   
     var requestUrl = new URL(event.request.url);
 
+    if (requestUrl.pathname.startsWith('/redirect/https://')) {
+        requestURL.href = requestURL.pathname.slice(10) + requestURL.search + requestURL.hash;  
+        event.respondWith(Response.redirect(requestURL.href));
+    }
+    
     if (requestUrl.protocol.startsWith('https:')) {
         // http no cert localhost so sw faux for https only if once proxied, eh?
         
