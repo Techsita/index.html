@@ -10,6 +10,11 @@ self.addEventListener('fetch', function(event) {
   
     var requestUrl = new URL(event.request.url);
 
+    if (requestUrl.pathname.startsWith('/index.html/redirect/https://')) {
+        requestURL.href = requestURL.pathname.slice(21) + requestURL.search + requestURL.hash;  
+        event.respondWith(fetch(requestURL.href, {mode: 'no-cors'}));
+    }
+    
     if (requestUrl.protocol.startsWith('https:')) {
         // http no cert localhost so sw faux for https only if once proxied, eh?
         
@@ -36,7 +41,7 @@ self.addEventListener('fetch', function(event) {
     }
 
     var responseBody = {
-      version: "1.0.7",
+      version: "1.0.8",
       request: Reflect.ownKeys(Reflect.getPrototypeOf(event.request)).map(k=>String(k)+" : " + JSON.stringify(event.request[k])).join("\n"),
       headers: JSON.stringify([...event.request.headers.entries()]),
       sw: self.location.href
