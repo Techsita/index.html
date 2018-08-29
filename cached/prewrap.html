@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>prewrap</title>
+<style id="styleid">
+  #top:not(:target) {
+    white-space: pre-wrap;
+  }
+</style>
+<script id="scriptid">
+document.designMode='on';
+self.addEventListener( 'pageshow' , function(event) {
+  if (!event.persisted && history.state && ('object' === typeof history.state)) {
+    document.body.textContent = history.state.tc || 'prewrap';
+  }
+} , {passive: true} );
+self.addEventListener( 'pagehide' , function(event) {
+  history.replaceState({tc: document.body.textContent}, 'prewrap');
+} , {passive: true} );
+</script>
+</head>
+<body id="top"></body>
+</html>
