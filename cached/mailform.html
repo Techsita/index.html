@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mailform</title>
+<style>
+form label input {
+  display: inline;
+  width: 50%;
+}
+form label textarea {
+  display: inline;
+  width: 50%;
+}
+form label {
+  display: block;
+/*  float: left; */
+  width: 50%;
+  text-align: right;
+}
+</style>
+</head>
+<body>
+body...
+<br>
+<div>
+<form target="_blank" data-action='data:text/html;#,<br><script>if(self.s=location.search)document.write(`<a%20href="mailto:delete@this.invalid${s.replace(/\+/g,"%20")}"%20target="_blank">email</a>`);</script>' action="mailto:postmaster@no-reply.invalid" name=forname id=forid autocomplete="on" enctype="text/plain" data-method="POST">
+<p>
+<label>mailto:<input type=email multiple name=to></label>
+<label>cc:<input type=email multiple name=cc></label>
+<label>bcc:<input type=email multiple name=bcc></label>
+<label>subject:<input type=text name=subject></label>
+<label>body:<textarea name=body rows=6></textarea></label>
+</p>
+<p>
+<label>create email popup:<input type=submit id=inpsub></label>
+</p>
+</form>
+</div>
+<br>
+...body
+</body>
+</html>
