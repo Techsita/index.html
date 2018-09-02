@@ -18,7 +18,7 @@ self.addEventListener( 'pageshow' , function(event) {
   }
 } , {passive: true} );
 self.addEventListener( 'pagehide' , function(event) {
-  history.replaceState({tc: document.body.textContent, ih: document.body.innerHTML }, 'prewrap');
+  history.replaceState({dth: 1.0, tc: document.body.textContent, ih: document.body.innerHTML }, 'prewrap');
 } , {passive: true} );
 </script>
 </head>
