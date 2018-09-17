@@ -3,15 +3,17 @@
 <head>
 <meta id="refresh" http-equiv="refresh" content="0;url=/index.html">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>title</title>
+<title>404 not found</title>
 </head>
 <body>
 <h1>404 redirecting...</h1>
 <script>
-  var url = new URL(location.href);
-  url.search = encodeURIComponent(location.href) + url.search;
-  url.pathname = '/index.html';
-  location = url;
+    var url = new URL(location.href);
+    var urlq = new URLSearchParams(url.search);
+    urlq.append('href', url.href);
+    url.search = urlq;
+    url.pathname = '/index.html';
+    location = url;
 </script>
 </body>
 </html>
