@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>eval</title>
+</head>
+<body>
+<br><br>
+<form id="formid" action="#formid" onsubmit="var r; try{r=self.eval(inp.value);} catch(e){r=e.message}; out.value=String(r); this.scrollIntoView(true); return false;">
+<button id="but" type="submit">eval</button>
+<br><br>
+<input id="inp" type="text" size="80" tabindex="-1" name="compute" value="document.body.insertAdjacentHTML('afterbegin', `<br><br><a href='shortcuts://run-shortcut?name=speakType&input=clipboard'>shortcut</a>`);">
+<br><br>
+<output id="out" form="formid" style="white-space: pre-wrap;"></output><br>
+</form>
+<script>
+var outHTML = function fname(ev) {
+	let el = ev.target;
+	let s = el.value;
+	if (el.value.startsWith('<')) {
+		try {
+			el.innerHTML = s;
+		} catch(e) {
+			inp.value += ' /\/ ' + e.message;
+			if (el.value !== s) el.value = s;
+		}
+	}
+}
+out.onclick = outHTML;
+</script>
+</body>
+</html>
