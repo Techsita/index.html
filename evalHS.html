@@ -6,12 +6,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>eval</title>
 <style id="styleid">
-:not(#top:target){white-space:pre-wrap;}
+body:not(#top:target){white-space:pre-wrap;}
 </style>
 </head>
 <body id=top>
-<br><form id="formid" action="#formid" onsubmit="var r; try{r=self.eval(inp.value);} catch(e){r=e.message}; out.value=String(r); this.scrollIntoView(true); return false;">
-<br><button type="reset">reset form</button>
+<form id="formid" action="#formid" onsubmit="var r; try{r=self.eval(inp.value);} catch(e){r=e.message}; out.value=String(r); this.scrollIntoView(true); return false;">
+<button type="reset">reset form</button>
 <br><button id="but" type="submit">eval</button>
 <br><input id="inp" type="text" size="80" tabindex="-1" name="compute" value="document.body.insertAdjacentHTML('afterbegin', out.innerHTML); `\n<a href='shortcuts://run-shortcut?name=speakType&input=clipboard'>shortcut</a>\n`">
 <br><output id="out" style="white-space: pre-wrap;"></output><br>
