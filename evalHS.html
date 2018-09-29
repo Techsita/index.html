@@ -5,11 +5,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>eval SA</title>
-<style id="styleid">
-body:not(#top:target){white-space:pre-wrap;}
-</style>
 </head>
-<body id=top>
+<body id=top><style id="styleid">body:not(#top:target){white-space:pre-wrap;}</style>
 <form id="formid" action="#formid" onsubmit="var r; try{r=self.eval(inp.value);} catch(e){r=e.message}; out.value=String(r); this.scrollIntoView(true); return false;">
 <button type="reset">reset form</button>
 <br><button id="but" type="submit">eval</button>
