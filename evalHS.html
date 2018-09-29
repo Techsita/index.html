@@ -20,7 +20,7 @@ body:not(#top:target){white-space:pre-wrap;}
 var outHTML = function fname(ev) {
 	let el = ev.target;
 	let s = el.value;
-	if (el.value.startsWith('<')) {
+	if (el.value.trim().startsWith('<')) {
 		try {
 			el.innerHTML = s;
 		} catch(e) {
