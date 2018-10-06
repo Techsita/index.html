@@ -12,7 +12,8 @@ self.addEventListener('fetch', function(event) {
 
     if (requestUrl.pathname.startsWith('/index.html/redirect/https://')) {
         requestURL.href = requestURL.pathname.slice(21) + requestURL.search + requestURL.hash;  
-        event.respondWith(fetch(requestURL.href, {mode: 'cors', credentials:'same-origin'}));
+        // event.respondWith(fetch(requestURL.href, {mode: 'cors', credentials:'same-origin'}));
+		event.respondWith(Response.redirect(requestURL.href));
     }
     
     if (requestUrl.protocol.startsWith('https:')) {
@@ -41,7 +42,7 @@ self.addEventListener('fetch', function(event) {
     }
 
     var responseBody = {
-      version: "1.0.9",
+      version: "1.0.10",
       time: Date(),
       request: Reflect.ownKeys(Reflect.getPrototypeOf(event.request)).map(k=>String(k)+" : " + JSON.stringify(event.request[k])).join("\n"),
       headers: JSON.stringify([...event.request.headers.entries()]),
