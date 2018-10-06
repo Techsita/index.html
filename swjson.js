@@ -12,7 +12,7 @@ self.addEventListener('fetch', function(event) {
 
     if (requestUrl.pathname.startsWith('/index.html/redirect/https://')) {
         requestURL.href = requestURL.pathname.slice(21) + requestURL.search + requestURL.hash;  
-        event.respondWith(fetch(requestURL.href, {mode: 'no-cors'}));
+        event.respondWith(fetch(requestURL.href, {mode: 'cors', credentials:'same-origin'}));
     }
     
     if (requestUrl.protocol.startsWith('https:')) {
@@ -36,12 +36,13 @@ self.addEventListener('fetch', function(event) {
         }
     }
 
-    if (requestUrl.hash.startsWith('#top')) {
+    if (!requestUrl.hash.startsWith('#sw:')) {
         return;
     }
 
     var responseBody = {
-      version: "1.0.8",
+      version: "1.0.9",
+      time: DATE(),
       request: Reflect.ownKeys(Reflect.getPrototypeOf(event.request)).map(k=>String(k)+" : " + JSON.stringify(event.request[k])).join("\n"),
       headers: JSON.stringify([...event.request.headers.entries()]),
       sw: self.location.href
@@ -53,13 +54,14 @@ self.addEventListener('fetch', function(event) {
       statusText: 'OK',
       headers: {
         'Content-Type': 'application/json',
-        'X-Mock-Response': 'yes'
+        'X-Mock-Response': 'yes',
+        'Refresh': `20; url=${requestUrl}`
       }
     };
     
     var mockResponse;
 
-    if (requestUrl.hash.startsWith('#edit')) {
+    if (requestUrl.hash.startsWith('#sw:edit')) {
       // mockResponse = Response.redirect(requestUrl.pathname + "#top");
       mockResponse = Response.redirect(`data:text/html,<!DOCTYPE%20html><html><head><meta%20charset="utf-8"><meta%20name="apple-mobile-web-app-capable"%20content="yes"><meta%20name="viewport"%20content="width=device-width,%20initial-scale=1"><title>title</title><style%20id="styleid">%23edit:target{white-space:pre-wrap;}</style><script%20id="scriptid"></script></head><body%20id="edit"%20contenteditable="true"></body></html>`);
     } else {
