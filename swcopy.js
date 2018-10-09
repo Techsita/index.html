@@ -90,7 +90,7 @@ let fetchHandler = function fh1(event) {
 	if (requestUrl.hash.startsWith('#sw:blank')) {
 		// mockResponse = Response.redirect(requestUrl.pathname + "#top");
 		
-		mockResponse = Response.redirect(encodeURL(`data:text/html;/prewrap.html?,
+		mockResponse = Response.redirect(encodeURI(`data:text/html;/prewrap.html?,
 <!DOCTYPE html>
 <html>
 <head>
