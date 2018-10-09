@@ -101,7 +101,7 @@ let fetchHandler = function fh1(event) {
 	<title>title</title>
 	
 	<style id="styleid">
-		body>:not(#top:target) { white-space: pre-wrap; }
+		#top:not(:target) { white-space: pre-wrap; }
 	</style>
 	
 	<script id="scriptid">
