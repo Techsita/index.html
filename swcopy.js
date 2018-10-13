@@ -15,8 +15,10 @@ let fetchHandler = function fh1(event) {
 		// so, our use case is allow absent localhost:80 server http get/head pref/store cache, https cache only
 
 		if (requestUrl.pathname.startsWith('/data:')) {
-			requestUrl.href = requestUrl.pathname.slice(1) + requestUrl.search + requestUrl.hash;
-			event.respondWith(Response.redirect(requestUrl.href));
+			let url = new URL(requestUrl.pathname.slice(1));
+			url.search = requestUrl.search;
+			url.hash = requestUrl.hash;
+			event.respondWith(Response.redirect(url.href));
 			return;
 		}
 
