@@ -7,20 +7,19 @@ self.addEventListener('install', function(event) {
 });
 
 let fetchHandler = function fh1(event) {
-  
+
 	let requestUrl = new URL(event.request.url);
 	const https = 'https:' === requestUrl.protocol;
-	
 
 	if (!requestUrl.hash.startsWith('#sw:')) { // sw: hash is meta, so bypass all normal function
 		// so, our use case is allow absent localhost:80 server http get/head pref/store cache, https cache only
-		
+
 		if (requestUrl.pathname.startsWith('/data:')) {
 			requestUrl.href = requestUrl.pathname.slice(1) + requestUrl.search + requestUrl.hash;
-			Response.redirect(requestUrl.href);
+			event.respondWith(Response.redirect(requestUrl.href));
 			return;
 		}
-		
+
 	    if (!requestUrl.protocol.startsWith('http')) {
 	        return; // exclusively http or https use-case 
 	    }
