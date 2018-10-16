@@ -35,7 +35,12 @@ let fetchHandler = function fh1(event) {
 	    	// technically could rename an mdns device, eg, mylocalhost and get caching (or weird .tld)
 	    	// po investigate cachename.localhost as a feature
 	    }
-	        	
+
+		if (requestUrl.pathname.endsWith('/')) {
+			return; // use-case working copy webDAV so avoid dir vs index.html foo
+			// this also makes local node.js with safari sw less con-fuse-ing
+		}
+
     	event.waitUntil( event.respondWith(
     		(
     		async function hitcacher(cacheName, event) {
@@ -63,7 +68,12 @@ let fetchHandler = function fh1(event) {
     				if (!Object.is(undefined, response)) {
     					event.waitUntil( cache.put(request, response.clone()) );
     				}
-    			}
+    			} else {
+					if ('#' === requestUrl.hash) {
+						event.waitUntil( cache.delete(request, {ignoreSearch: true}) ); // ~match delete
+						return; // rudimentary cache entry delete + bypass
+					}
+				}
         			
     			return response;
     		}
@@ -74,7 +84,7 @@ let fetchHandler = function fh1(event) {
     }
 
 	var responseBody = {
-	  version: "1.1.11",
+	  version: "1.1.12",
 	  time: Date(),
 	  request: Reflect.ownKeys(Reflect.getPrototypeOf(event.request)).map(k=>String(k)+" : " + 
 		JSON.stringify(event.request[k])).join("\n"),
