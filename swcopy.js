@@ -65,11 +65,14 @@ let fetchHandler = function fh1(event) {
 				
 				if (Object.is(undefined, response)) {
     				response = await fetch(event.request); // pristine, po privileged
+
     				if (!Object.is(undefined, response)) {
-    					event.waitUntil( cache.put(request.clone(), response.clone()) );
+    					if (requestUrl.hash.startsWith('#' + cacheName + ':put')) {
+    						event.waitUntil( cache.put(request.clone(), response.clone()) );
+    					}
     				}
     			} else {
-					if (requestUrl.hash.startsWith(cacheName + ':delete')) {
+					if (requestUrl.hash.startsWith('#' + cacheName + ':delete')) {
 						event.waitUntil( cache.delete(request.clone(), {ignoreSearch: true}) ); // ~match delete
 						return; // rudimentary cache entry delete + bypass
 					}
@@ -77,14 +80,14 @@ let fetchHandler = function fh1(event) {
         			
     			return response;
     		}
-    		)(cacheName, event) /* invoke async; easy cut-paste later to SA fn (I dislike throwawy anon MO)
+    		)(cacheName, event) /* invoke async; easy cut-paste later to SA fn (I dislike throwawy anon MO) */
     	)); 
     	
     	return; // handled request, so don't trip over self accidentally, eh?
     }
 
 	var responseBody = {
-	  version: "1.1.14",
+	  version: "1.1.15",
 	  time: Date(),
 	  request: Reflect.ownKeys(Reflect.getPrototypeOf(event.request)).map(k=>String(k)+" : " + 
 		JSON.stringify(event.request[k])).join("\n"),
