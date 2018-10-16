@@ -7,7 +7,7 @@ self.addEventListener('install', function(event) {
 });
 
 let fetchHandler = function fh1(event) {
-
+	const cacheName = 'cached';
 	let requestUrl = new URL(event.request.url);
 	const https = 'https:' === requestUrl.protocol;
 
@@ -46,7 +46,7 @@ let fetchHandler = function fh1(event) {
     		async function hitcacher(cacheName, event) {
     			const cache = await caches.open(cacheName);
     			let response;
-    			let request = event.request;
+    			let request = event.request.clone();
     				
 				if (https) {
 					requestUrl.protocol = 'http:';
@@ -60,31 +60,31 @@ let fetchHandler = function fh1(event) {
 					)
 				}
     				
-				response = await cache.match(request, {ignoreSearch: true}); 
+				response = await cache.match(request.clone(), {ignoreSearch: true}); 
 				// NB ignore search is our use-case here
 				
 				if (Object.is(undefined, response)) {
-    				response = await fetch(request);
+    				response = await fetch(event.request); // pristine, po privileged
     				if (!Object.is(undefined, response)) {
-    					event.waitUntil( cache.put(request, response.clone()) );
+    					event.waitUntil( cache.put(request.clone(), response.clone()) );
     				}
     			} else {
-					if ('#' === requestUrl.hash) {
-						event.waitUntil( cache.delete(request, {ignoreSearch: true}) ); // ~match delete
+					if (requestUrl.hash.startsWith(cacheName + ':delete')) {
+						event.waitUntil( cache.delete(request.clone(), {ignoreSearch: true}) ); // ~match delete
 						return; // rudimentary cache entry delete + bypass
 					}
 				}
         			
     			return response;
     		}
-    		)('cached', event)
+    		)(cacheName, event) /* invoke async; easy cut-paste later to SA fn (I dislike throwawy anon MO)
     	)); 
     	
     	return; // handled request, so don't trip over self accidentally, eh?
     }
 
 	var responseBody = {
-	  version: "1.1.12",
+	  version: "1.1.14",
 	  time: Date(),
 	  request: Reflect.ownKeys(Reflect.getPrototypeOf(event.request)).map(k=>String(k)+" : " + 
 		JSON.stringify(event.request[k])).join("\n"),
