@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>playground</title>
+<style id="styleid">
+:not(#top:target){white-space:pre-wrap;}
+</style>
+</head>
+<body id="top">
+Welcome to my work playground!
+	
+Statically served by GitHub Pages, I have 404s redirecting here with
+?href=
+so I've added a fun tracking to the title and also
+(simple version e.g.) I can say "
+hey Siri 
+danhite dot me slash questionmark href equalsign Simon plussign says
+" and we will get a surprising pushbutton result here, at top.
+
+For evaluation e.g. try...
+danhite dot me slash questionmark compute equalsign document dot title
+
+Or add open or https:// in front, and conclude with hashtag stuff more stuff, e.g. try...
+open https colon slash slash danhite dot me slash hashtag camel case is fun
+
+<br><form id="formid" contenteditable="false" onsubmit="var r; try{r=self.eval(inp.value);} catch(e){r=e.message}; out.value=String(r); this.scrollIntoView(true); return false;">
+<button id="but" type="submit">compute</button>
+<br><input id="inp" type="text" size=80 tabindex="-1" name="compute" value="window.document.lastModified; ">
+<br><output id="out" form="formid" style="white-space: pre-wrap;" onclick="inp.value=out.value;"></output>
+</form>
+<script id="scriptid">
+	// document.title = 0;
+	self.url = new URL(location.href);
+	self.urlq = url.searchParams;
+	self.hash = url.hash;
+	
+	self.hashID; // future scheme for preserve css && id semantics
+	var s; // temp string; var when used is ~debug vs let but self.varID is ~global, ie scoped intent
+	
+	s = hash;
+	if (s) {
+		if (s.startsWith('#')) s = s.slice(1);
+		if (!s.includes(' ')) {
+			s = s.replace(/\%20/g, ' ');
+		}
+		if (s.includes(' ')) {
+			hashID = s.split(' ')[0];
+		}
+	}
+	hash = s.trim();
+	
+	var href = urlq.get('href') || urlq.get('HREF') || '';
+	
+	href = String(href).trim();
+	if (href) {
+		// document.title += 1;
+		s = href;
+		var urlhref = '';
+		var errormess = '';
+		var urlqhref = '';
+		try {
+			urlhref = new URL(href, location.origin);
+			s = urlhref.search;
+			if (s.startsWith('?')) s = s.slice(1);
+			if (s.includes('=')) {
+				s = [... urlhref.searchParams].flat().join(', ');
+			}
+			s = s.trim() || urlhref.hash;
+			if (s.startsWith('#')) s = s.slice(1);
+			s = s.trim() || urlhref.pathname;
+			if (s.startsWith('/')) s = s.slice(1);
+			s = unescape(s).trim();
+		} catch(e) {
+			errormess = e.name + ': ' + e.message;
+		}
+		// document.title += 2 + '{' + s + '}';
+		
+		if (s) {
+			// document.title += 3;
+			document.title = s;
+			
+			document.body.insertAdjacentHTML('afterbegin', `<br><br><button type=button contenteditable="false" onclick="speechSynthesis.speak(new SpeechSynthesisUtterance(document.title));">Say Wha?!</button><br>`);
+		} else {
+			// document.title += 4;
+			// document.body.append(JSON.stringify([urlq]));
+		}
+	}
+	
+	s = urlq.get('compute') || urlq.get('Compute') || urlq.get('COMPUTE') || null;
+	if (null !== s) {
+		inp.value = s;
+		but.click();
+	} else {
+		if (hash) out.value = hash;
+	}
+	let cb = urlq.get('x-success');
+	if (cb) {
+		let urlCallback = '';
+		try {
+			urlCallback = new URL(cb);
+			if (urlCallback) {
+				urlCallback.searchParams.append('output', String(out.value));
+				urlCallback.search = urlCallback.search.replace(/\+/g, ' ');
+				self. location.href = urlCallback.href;
+			} // NB shortcuts homescreen ~app synthesizes sans user input or permission
+		} catch(e) {};
+	}
+</script>
+</body>
+</html>
