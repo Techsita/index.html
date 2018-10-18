@@ -22,6 +22,22 @@ let fetchHandler = function fh1(event) {
 			return;
 		}
 
+		if (requestUrl.pathname.startsWith('/javascript:')) {
+			let url = new URL(requestUrl.pathname.slice(1));
+			url.search = requestUrl.search;
+			url.hash = requestUrl.hash;
+			event.respondWith(Response.redirect(url.href));
+			return;
+		}
+
+		if (requestUrl.pathname.startsWith('/shortcuts:')) {
+			let url = new URL(requestUrl.pathname.slice(1));
+			url.search = requestUrl.search;
+			url.hash = requestUrl.hash;
+			event.respondWith(Response.redirect(url.href));
+			return;
+		}
+
 	    if (!requestUrl.protocol.startsWith('http')) {
 	        return; // exclusively http or https use-case 
 	    }
@@ -87,7 +103,7 @@ let fetchHandler = function fh1(event) {
     }
 
 	var responseBody = {
-	  version: "1.1.15",
+	  version: "1.1.16",
 	  time: Date(),
 	  request: Reflect.ownKeys(Reflect.getPrototypeOf(event.request)).map(k=>String(k)+" : " + 
 		JSON.stringify(event.request[k])).join("\n"),
