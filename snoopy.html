@@ -1,0 +1,21 @@
+<head></head><body onload="
+	document.body.insertAdjacentHTML('beforeend', 
+`
+<h3>${document.readyState} ${Date()}</h2>
+<p>${location.href}</p>
+<p>${navigator.userAgent}</p>
+`
+	);
+">
+<script>
+if (document.body.firstElementChild === document.currentScript) {
+	document.body.insertAdjacentHTML('afterbegin', 
+`
+<h2>${document.readyState} ${Date()}</h2>
+<p>${location.href}</p>
+<p>${navigator.userAgent}</p>
+`
+	);
+}
+</script>
+</body>
