@@ -9,7 +9,7 @@
 :not(#top:target){white-space:pre-wrap;}
 </style>
 </head>
-<body id="top">
+<body id="top" hidden onload="document.body.hidden=false;">
 Welcome to my work playground!
 	
 Statically served by GitHub Pages, I have 404s redirecting here with
@@ -111,7 +111,7 @@ open https colon slash slash danhite dot me slash hashtag camel case is fun
 	let result = urlq.get('result');
 	if (result !== null) {
 		localStorage.result = result;
-		setTimeout(window.close, 1);
+		setTimeout(window.close, 0);
 	} else {
 		window.onstorage = ev => {
 			// localStorage.lastModified = Math.floor(ev.timeStamp);
