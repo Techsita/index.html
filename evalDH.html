@@ -108,6 +108,18 @@ open https colon slash slash danhite dot me slash hashtag camel case is fun
 			} // NB shortcuts homescreen ~app synthesizes sans user input or permission
 		} catch(e) {};
 	}
+	let result = urlq.get('result');
+	if (result !== null) {
+		localStorage.result = result;
+		window.close();
+	} else {
+		window.onstorage = ev => {
+			// localStorage.lastModified = Math.floor(ev.timeStamp);
+			if (ev.key === 'result') {
+				out.value = ev.newValue;
+			}
+		} ;
+	}
 </script>
 </body>
 </html>
