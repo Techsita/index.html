@@ -15,7 +15,7 @@
     <script src="simplepeer.min.js"></script>
     <script>
     	console.log = s => {out.value = s;};
-    	navigator.mediaDevices.getUserMedia({audio: true, video: false});
+    	navigator.mediaDevices.getUserMedia({audio: true, video: true});
     	
     	var p = new SimplePeer({ initiator: location.hash === '#1', trickle: false })
 
